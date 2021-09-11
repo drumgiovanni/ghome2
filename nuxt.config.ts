@@ -14,7 +14,8 @@ const config: NuxtConfig = {
       '@storybook/addon-controls/register',
       '@storybook/addon-docs/register',
       '@storybook/addon-toolbars/register',
-      '@storybook/addon-viewport/register'
+      '@storybook/addon-viewport/register',
+      '@storybook/addon-storysource/register'
     ],
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
