@@ -18,7 +18,7 @@ export default defineComponent({
         const auth = $fire.auth
         onMounted(() => {
             const firebaseui = require('firebaseui')
-            auth.onAuthStateChanged(async (user) => {
+            auth.onAuthStateChanged((user) => {
                 if(!user) {
                     const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth)
                     const config = {
@@ -39,13 +39,11 @@ export default defineComponent({
                         signInFlow: 'popup'
                     }
                     ui.start('#firebaseui-auth-container', config)
-                } else {
-                    if ($config.giovanniUid.includes(user.uid)) {
+                } else if ($config.giovanniUid.includes(user.uid)) {
                         router.push('/home')
                     } else {
                         auth.signOut()
                     }
-                }
             })
         }) 
     },

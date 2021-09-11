@@ -1,5 +1,5 @@
 <template>
-   <div @click="imageClicked" :style="{ width: imageWidth, height: imageHeight}">
+   <div :style="{ width: imageWidth, height: imageHeight}" @click="imageClicked">
        <div :style="{ backgroundImage: generatedImageUrl }" :class="$style.buttonImage"/>
     </div> 
 </template>

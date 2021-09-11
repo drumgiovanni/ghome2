@@ -10,6 +10,7 @@ import { defineComponent, computed, toRefs } from '@nuxtjs/composition-api'
 export default defineComponent({
     props: {
         lightStatus: {
+            type: Boolean,
             default: false
         }
     },

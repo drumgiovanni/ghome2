@@ -1,9 +1,9 @@
 <template>
     <div>
-        <indoor-map :isMasterLightOn="isMasterLightOn" ref="componentRef"/>
-        <image-button :class="$style.light" :imageUrl="lightImage" @imageClicked="imageClicked('light')"/>
-        <image-button :class="$style.aircon" :imageUrl="airconImage" />
-        <image-button :class="$style.key" :imageUrl="keyImage" @imageClicked="imageClicked('key')"/>
+        <indoor-map ref="componentRef" :is-master-light-on="isMasterLightOn"/>
+        <image-button :class="$style.light" :image-url="lightImage" @imageClicked="imageClicked('light')"/>
+        <image-button :class="$style.aircon" :image-url="airconImage" />
+        <image-button :class="$style.key" :image-url="keyImage" @imageClicked="imageClicked('key')"/>
     </div>
 </template>
 <script lang="ts">
@@ -14,11 +14,11 @@ interface RefType extends Vue {
     masterLightClicked(): void
 }
 export default defineComponent({
-    setup(_, context) {
+    setup() {
         const lightOn = 'lightOn.png'
         const lightOff = 'lightOff.png'
-        let isMasterLightOn = ref(false)
-        let lightImage = ref('lightOff.png')
+        const isMasterLightOn = ref(false)
+        const lightImage = ref('lightOff.png')
         const airconImage = 'aircon.png' 
         const keyImage = 'key.png'
         const componentRef = ref<InstanceType<typeof IndoorMap>>()
@@ -44,7 +44,7 @@ export default defineComponent({
             lightImage.value = lightImage.value === lightOn ? lightOff : lightOn
             isMasterLightOn.value = !isMasterLightOn.value
             masterLightClicked()
-            console.log(`全ての電気 ${isMasterLightOn.value ? 'オン' : 'オフ'}`)
+            console.info(`全ての電気 ${isMasterLightOn.value ? 'オン' : 'オフ'}`)
         }
         const switchLock = () => {
             masterKeyClicked()

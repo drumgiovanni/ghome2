@@ -2,23 +2,23 @@
     <div :class="$style.mapWrapper">
         <div :class="$style.square">
             <div :class="$style.ceiling">
-                <light :id="$style.livingLight" @lightClicked="clickLight('living')" :lightStatus="state.isLivingLightOn" />
+                <light :id="$style.livingLight" :light-status="state.isLivingLightOn" @lightClicked="clickLight('living')" />
                 <door :id="$style.livingDoor" />
-                <light :id="$style.thirdFloorCentrLight" @lightClicked="clickLight('floor3')" :lightStatus="state.isFloor3LightOn" />
+                <light :id="$style.thirdFloorCentrLight" :light-status="state.isFloor3LightOn" @lightClicked="clickLight('floor3')" />
                 <door :id="$style.officeDoor" />
-                <light :id="$style.officeLight" @lightClicked="clickLight('office')" :lightStatus="state.isOfficeLightOn" />
+                <light :id="$style.officeLight" :light-status="state.isOfficeLightOn" @lightClicked="clickLight('office')" />
             </div>
             <div :class="$style.floor">
                 <div :class="$style.leftStairs" />
-                <light :id="$style.secondFloorStairsLight" @lightClicked="clickLight('floor2')" :lightStatus="state.isFloor2LightOn" />
-                <light :id="$style.secondFloorCentrLight"  @lightClicked="clickLight('floor2')" :lightStatus="state.isFloor2LightOn" />
+                <light :id="$style.secondFloorStairsLight" :light-status="state.isFloor2LightOn" @lightClicked="clickLight('floor2')" />
+                <light :id="$style.secondFloorCentrLight"  :light-status="state.isFloor2LightOn" @lightClicked="clickLight('floor2')" />
                 <door :id="$style.bedroomDoor" />
-                <light :id="$style.bedroomLight" @lightClicked="clickLight('bedroom')" :lightStatus="state.isBedroomLightOn" />
+                <light :id="$style.bedroomLight" :light-status="state.isBedroomLightOn" @lightClicked="clickLight('bedroom')" />
             </div>
             <div :class="$style.floor">
-                <door :id="$style.entranceDoor" @doorClicked="clickDoor" :doorStatus="state.isEntranceOpen"/>
-                <light :id="$style.entranceLight" @lightClicked="clickLight('floor1')" :lightStatus="state.isFloor1LightOn" />
-                <light :id="$style.firstFloorStairsLight" @lightClicked="clickLight('floor1')" :lightStatus="state.isFloor1LightOn" />
+                <door :id="$style.entranceDoor" :door-status="state.isEntranceOpen" @doorClicked="clickDoor"/>
+                <light :id="$style.entranceLight" :light-status="state.isFloor1LightOn" @lightClicked="clickLight('floor1')" />
+                <light :id="$style.firstFloorStairsLight" :light-status="state.isFloor1LightOn" @lightClicked="clickLight('floor1')" />
                 <div :class="$style.rightStairs" />
             </div>
             <div :class="$style.floor" />
@@ -48,7 +48,7 @@ export default defineComponent({
             default: false
         }
     },
-    setup(props, context) {
+    setup(props, _) {
         const { isMasterLightOn } = toRefs(props)
         const state = reactive<State>({
             isLivingLightOn: false,
@@ -63,43 +63,43 @@ export default defineComponent({
             switch(place) {
                 case 'living':
                     state.isLivingLightOn = !state.isLivingLightOn
-                    console.log(`リビング 電気 ${state.isLivingLightOn ? "オン" : "オフ"}`)
+                    console.info(`リビング 電気 ${state.isLivingLightOn ? "オン" : "オフ"}`)
                     break
                 case 'floor3':
                     state.isFloor3LightOn = !state.isFloor3LightOn
-                    console.log(`３階 電気 ${state.isFloor3LightOn ? "オン" : "オフ"}`)
+                    console.info(`３階 電気 ${state.isFloor3LightOn ? "オン" : "オフ"}`)
                     break
                 case 'office':
                     state.isOfficeLightOn = !state.isOfficeLightOn
-                    console.log(`書斎 電気 ${state.isOfficeLightOn ? "オン" : "オフ"}`)
+                    console.info(`書斎 電気 ${state.isOfficeLightOn ? "オン" : "オフ"}`)
                     break
                 case 'floor2':
                     state.isFloor2LightOn = !state.isFloor2LightOn
-                    console.log(`２階　電気 ${state.isFloor2LightOn ? "オン" : "オフ"}`)
+                    console.info(`２階 電気 ${state.isFloor2LightOn ? "オン" : "オフ"}`)
                     break
                 case 'bedroom':
                     state.isBedroomLightOn = !state.isBedroomLightOn
-                    console.log(`寝室 電気 ${state.isBedroomLightOn ? "オン" : "オフ"}`)
+                    console.info(`寝室 電気 ${state.isBedroomLightOn ? "オン" : "オフ"}`)
                     break
                 case 'floor1':
                     state.isFloor1LightOn = !state.isFloor1LightOn
-                    console.log(`１階 電気 ${state.isFloor1LightOn ? "オン" : "オフ"}`)
+                    console.info(`１階 電気 ${state.isFloor1LightOn ? "オン" : "オフ"}`)
                     break
             }
         }
         const clickDoor = () => {
             state.isEntranceOpen = !state.isEntranceOpen
-            console.log(`入口ドア ${state.isEntranceOpen ? "解錠" : "施錠"}`)
+            console.info(`入口ドア ${state.isEntranceOpen ? "解錠" : "施錠"}`)
         }
         const masterKeyClicked = () => {
             state.isEntranceOpen = !state.isEntranceOpen
-            console.log(`入口ドア ${state.isEntranceOpen ? "解錠" : "施錠"}`)
+            console.info(`入口ドア ${state.isEntranceOpen ? "解錠" : "施錠"}`)
 
         }
         const masterLightClicked = () => {
             (Object.keys(state) as (keyof State)[]).forEach((k)=> {
                 if(k === "isEntranceOpen") { return }
-                state[k] = isMasterLightOn.value ? false : true
+                state[k] = !isMasterLightOn.value
             })
         }
         return {
