@@ -1,9 +1,11 @@
 <template>
     <div>
         <indoor-map ref="componentRef" :is-master-light-on="isMasterLightOn"/>
-        <image-button :class="$style.light" :image-url="lightImage" @imageClicked="imageClicked('light')"/>
-        <image-button :class="$style.aircon" :image-url="airconImage" />
-        <image-button :class="$style.key" :image-url="keyImage" @imageClicked="imageClicked('key')"/>
+        <div class="image-buttons">
+            <image-button :class="$style.light" :image-url="lightImage" @imageClicked="imageClicked('light')"/>
+            <image-button :class="$style.aircon" :image-url="airconImage" />
+            <image-button :class="$style.key" :image-url="keyImage" @imageClicked="imageClicked('key')"/>
+        </div>
     </div>
 </template>
 <script lang="ts">
