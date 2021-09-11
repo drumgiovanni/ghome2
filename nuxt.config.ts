@@ -1,5 +1,7 @@
 import { NuxtConfig } from "@nuxt/types"
 
+import path from 'path'
+const rootPath = path.resolve(__dirname, './')
 const config: NuxtConfig = {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -14,8 +16,14 @@ const config: NuxtConfig = {
       '@storybook/addon-controls/register',
       '@storybook/addon-docs/register',
       '@storybook/addon-toolbars/register',
-      '@storybook/addon-viewport/register'
+      '@storybook/addon-viewport/register',
+      '@storybook/addon-storysource/register'
     ],
+    //@ts-ignore
+    webpackFinal: (config, { configType }) => {
+      config.resolve.alias['~'] = rootPath
+      return config
+    }
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
