@@ -50,7 +50,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-vue": "^7.12.1",
-    "jest": "^27.1.1",
+    "jest": "^27.3.0",
     "playwright": "^1.14.1",
     "postcss": "^8.3.6",
     "postcss-import": "^13.0.0",
